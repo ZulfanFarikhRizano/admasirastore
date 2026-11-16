@@ -1,8 +1,19 @@
 import { Barlow_Condensed, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 
-const display = Barlow_Condensed({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-display" });
-const body = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body" });
+const display = Barlow_Condensed({ 
+  subsets: ["latin"], 
+  weight: ["600", "700"], 
+  variable: "--font-display",
+  display: "swap", // Tambahan agar aman saat font dimuat di server
+});
+
+const body = IBM_Plex_Sans({ 
+  subsets: ["latin"], 
+  weight: ["400", "500", "600"], 
+  variable: "--font-body",
+  display: "swap", // Tambahan agar aman saat font dimuat di server
+});
 
 export const metadata = {
   title: "Admasira Store Group | Perlengkapan Peternakan",
