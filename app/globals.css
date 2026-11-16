@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Token warna: ubah di sini untuk mengganti tema */
+:root,
+:root[data-theme="dark"] {
+  --bg: 9 9 11;
+  --surface: 24 24 27;
+  --line: 39 39 42;
+  --fg: 250 250 250;
+  --body: 212 212 216;
+  --muted: 161 161 170;
+  --accent: 163 179 74;
+  --accent-hover: 183 199 96;
+  --accent-on: 9 9 11;
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  --bg: 255 255 255;
+  --surface: 244 244 245;
+  --line: 212 212 216;
+  --fg: 24 24 27;
+  --body: 63 63 70;
+  --muted: 82 82 91;
+  --accent: 85 96 34;
+  --accent-hover: 68 77 27;
+  --accent-on: 255 255 255;
+  color-scheme: light;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; background: rgb(var(--bg)); }
+body { @apply bg-bg font-body text-body antialiased; }
+:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+/* Transisi tema melingkar (View Transitions API).
+   Animasi didefinisikan di CSS agar mulai tepat saat snapshot siap, tanpa kedipan. */
+::view-transition-old(root),
+::view-transition-new(root) { mix-blend-mode: normal; }
+::view-transition-old(root) { animation: none; z-index: 1; }
+::view-transition-new(root) { z-index: 2; animation: theme-reveal 700ms cubic-bezier(.65, 0, .35, 1) both; }
+@keyframes theme-reveal {
+  from { clip-path: circle(0px at var(--vt-x, 50%) var(--vt-y, 50%)); }
+  to   { clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 50%)); }
+}
+
+button, a { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; }
+
+/* Matikan transisi CSS biasa selama pergantian tema agar lingkarannya bersih */
+.no-anim *, .no-anim *::before, .no-anim *::after { transition: none !important; }
